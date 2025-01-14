@@ -31,7 +31,7 @@ launch(char **args)
 	if (pid == 0) {
 		/* Child process */
 		if (execvp(args[0], args) == -1) {
-			perror("sh-ovel");
+			fprintf(stderr, "sh-ovel: failed to execute %s\n", args[0]);
 		}
 		exit(EXIT_FAILURE);
 	} else if (pid < 0) {
@@ -40,7 +40,7 @@ launch(char **args)
 	} else {
 		/* Parent process */
 		do {
-			waitpid(pid, &status, WUNTRACED);
+			waitpid(pid, &status, WUNTRACED | WCONTINUED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 
@@ -57,7 +57,7 @@ execute(char **args)
 {
 	int i;
 
-	if (args[0] == NULL) {
+	if (args[0] == NULL || strcmp(args[0], "") == 0) {
 		/* Empty command */
 		return 1;
 	}
