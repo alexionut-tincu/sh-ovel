@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include "builtins.h"
 #include "execute.h"
+#include "history.c"
 #include "loop.h"
 #include "parse.h"
 
@@ -73,10 +74,17 @@ loop(void)
 			return;
 		}
 		line = read_line();
+		if (line != NULL) {
+			history_add(line);
+		}
+
 		args = split_line(line);
 		status = execute(args);
 
 		free(line);
 		free(args);
 	} while (status);
+
+	history_save(".sh-ovel_history");
+	history_free();
 }

@@ -3,3 +3,6 @@
 
 # Executable
 sh-ovel
+
+# History file
+.sh-ovel_history
