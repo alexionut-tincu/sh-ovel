@@ -5,7 +5,6 @@
 ## Features
 
 - **Basic Command Execution**: Run standard UNIX commands like `ls`, `echo`, `cat`, etc.
-- **Environment Variables**: Supports basic variable substitution.
 - **Custom Builtins**: Includes a few built-in commands (e.g., `cd`, `exit`).
 - **Minimal Dependencies**: Uses direct syscalls where possible, avoiding bloated libraries.
 - **History Logging**: Saves the command history in a file after closing the shell.
